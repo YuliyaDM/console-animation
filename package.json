@@ -1,0 +1,20 @@
+{
+  "name": "proj-3",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "node ./src/index.js",
+    "jsdoc": "jsdoc -c jsdoc.json",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bezier-easing": "^2.1.0",
+    "termination": "^1.0.3"
+  },
+  "devDependencies": {
+    "jsdoc": "^4.0.0"
+  }
+}
