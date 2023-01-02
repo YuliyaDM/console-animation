@@ -9,4 +9,4 @@
  */
 const COLORS_LIST = ['red', 'yellow', 'green', 'blue', 'cyan', 'magenta'];
 
-module.exports = { COLORS_LIST };
+module.exports = {COLORS_LIST};

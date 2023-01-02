@@ -1,124 +1,135 @@
-const { Animation } = require('termination');
+const {Animation} = require('termination');
 const BezierEasing = require('bezier-easing');
-const { random } = require('./utils/random');
-const Phrases = require('./constants/phrases');
-const Colors = require('./constants/colors');
 const size = require('window-size');
+const random = require('./utils/random');
+const phrases = require('./constants/phrases');
+const animationSettings = require('./constants/animationSettings');
 
 /**
  * @type {object}
  * @property {number} width
  * @property {number} height
  */
-const { width, height } = size;
+const {width, height} = size;
+
+/**
+ * @type {object}
+ * @property {animationSettings.LetterMargins} LETTER_MARGINS
+ */
+const {LETTER_MARGINS} = animationSettings;
 
 /**
  * @type {Animation}
  */
 const animation = new Animation({
-    fps: 35,
-    maxSize: {
-        width: width,
-        height: height,
-    }
+  fps: 35,
+  maxSize: {
+    width: width,
+    height: height,
+  },
 });
 
 /**
- * @type {Function}
- * @returns {Colors.ColorsType}
+ * @type {object}
+ * @property {number[]} width
+ * @property {number[]} height
  */
-const RandomColor = () => Colors.COLORS_LIST[random(0, Colors.COLORS_LIST.length - 1)];
+const wordsSize = {
+  width: [],
+  height: [],
+};
 
-/** @type {number[]} */
-let wordsLength = [];
-/** @type {number[]} */
-let wordsHeight = [];
+const phrasesCoordinates = phrases.HAPPY_NEW_YEAR.map((word, wordIndex) => {
+  /** @type {number} */
+  let wordLength = 0;
+  /** @type {number} */
+  let wordHeight = 0;
 
-const letterMargins = {
-    bottom_top: 10,
-    right_left: 20, 
-}
-
-const phrasesCoordinates = Phrases.HAPPY_NEW_YEAR.map((word, wordIndex) => {
+  const lettersLength = word.map((letter, letterIndex) => {
+    /** @type {number} */
+    let lastLayerLength = 0;
 
     /** @type {number} */
-    let wordLength = 0;
-    /** @type {number} */
-    let wordHeight = 0;
+    let maxLayerHeight = 0;
 
-    const lettersLength = word.map((letter, letterIndex) => {
-        /** @type {number} */
-        let lastLayerLength = 0;
+    const coordinates = {
+      x: letterIndex * LETTER_MARGINS.horizontal,
+      y: wordIndex * LETTER_MARGINS.vertical,
+    };
 
-        /** @type {number} */
-        let maxLayerHeight = 0;
-
-        const coordinates = {
-            x: letterIndex * letterMargins.right_left,
-            y: wordIndex * letterMargins.bottom_top,
-        };
-
-        const layersLength = letter.map((layer, layerIndex) => {
-            layerIndex === letter.length - 1 ? lastLayerLength = layer.length : '';
-            maxLayerHeight < letter.length ? maxLayerHeight = letter.length : '';
-        });
-
-        if (letterIndex === word.length - 1){ 
-            wordLength = (lastLayerLength + coordinates.x);
-            wordHeight = (maxLayerHeight);
-        }
+    const layersLength = letter.map((layer, layerIndex) => {
+      if (layerIndex === letter.length - 1) {
+        lastLayerLength = layer.length;
+      }
+      if (maxLayerHeight < letter.length) {
+        maxLayerHeight = letter.length;
+      }
     });
-    
-    wordsHeight.push(wordHeight);
-    wordsLength.push(wordLength);
 
-})
+    if (letterIndex === word.length - 1) {
+      wordLength = (lastLayerLength + coordinates.x);
+      wordHeight = (maxLayerHeight);
+    }
+  });
 
-const phraseHeight = wordsHeight.reduce((preEl, currEl) => preEl + 10 + currEl, 0) - 10;
+  wordsSize.width.push(wordLength);
+  wordsSize.height.push(wordHeight);
+});
 
-const phrasesAnimate = Phrases.HAPPY_NEW_YEAR.map((word, wordIndex) => {
-    const wordFrames = word.map((letter, letterIndex) => {
+const phraseHeight = wordsSize.height.reduce((preEl, currEl) => {
+  return preEl + 10 + currEl;
+}, 0) - LETTER_MARGINS.vertical;
 
-        const coordinates = {
-            x: letterIndex * letterMargins.right_left + (width - letterMargins.right_left / 2 - wordsLength[wordIndex]) / 2,
-            y: wordIndex * letterMargins.bottom_top + (height - phraseHeight) / 2 + letterMargins.bottom_top / 2,
-        };
+const phrasesAnimate = phrases.HAPPY_NEW_YEAR.map((word, wordIndex) => {
+  const wordFrames = word.map((letter, letterIndex) => {
+    const wordLength = wordsSize.width[wordIndex];
+    // eslint-disable-next-line max-len
+    const horizontalCenter = (width - LETTER_MARGINS.horizontal / 2 - wordLength) / 2;
+    // eslint-disable-next-line max-len
+    const vericalCenter = (height - phraseHeight) / 2 + LETTER_MARGINS.vertical / 2;
 
-        const letterAnimation = animation.add({
-            x: coordinates.x,
-            y: coordinates.y,
-            color: RandomColor(),
-            content: letter[0],
-            replaceSpace: true,
+    const coordinates = {
+      x: letterIndex * LETTER_MARGINS.horizontal + horizontalCenter,
+      y: wordIndex * LETTER_MARGINS.vertical + vericalCenter,
+    };
+
+    const letterAnimation = animation.add({
+      x: coordinates.x,
+      y: coordinates.y,
+      color: random.randomColor(),
+      content: letter[0],
+      replaceSpace: true,
+    });
+
+    const letterFrames = letter.map((layer, layerIndex) => {
+      const content = letter.slice(0, layerIndex + 1).join('\n');
+      const updateFrame = {
+        props: {content: content, color: random.randomColor()},
+        duration: (layerIndex === letter.length - 1) ? 500 : 200,
+        // @ts-ignore
+        func: (t) => new BezierEasing(0.73, -0.18, 0, 0.66)(t),
+      };
+
+      return updateFrame;
+    });
+
+    const letterTransition = letterAnimation.transition(letterFrames,
+        {
+          loop: true,
+          loopInterval: 100,
+          alternate: true,
         });
 
-        const letterFrames = letter.map((layer, layerIndex) => {
-            
-            const content = letter.slice(0, layerIndex + 1).join('\n');
-            const updateFrame = {
-                props: { content: content, color: RandomColor() },
-                duration: (layerIndex === letter.length - 1) ? 500 : 200,
-                // @ts-ignore
-                func: t => new BezierEasing(0.73, -0.18, 0, 0.66)(t),
-            };
+    return letterTransition;
+  });
 
-            return updateFrame;
-
-        })
-
-        const letterTransition = letterAnimation.transition(letterFrames, { loop: true, loopInterval: 100, alternate: true });
-
-        return letterTransition;
-    
-    })
-
-    return wordFrames;
-})
+  return wordFrames;
+});
 
 animation.start();
 
-phrasesAnimate.forEach(word => {
-    word.forEach(letter => {
-        letter.run();
-    });
+phrasesAnimate.forEach((word) => {
+  word.forEach((letter) => {
+    letter.run();
+  });
 });

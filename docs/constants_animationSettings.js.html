@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: utils/random.js</title>
+    <title>JSDoc: Source: constants/animationSettings.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: utils/random.js</h1>
+    <h1 class="page-title">Source: constants/animationSettings.js</h1>
 
     
 
@@ -26,34 +26,22 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>const colors = require('../constants/colors');
-
-/**
- * The Random function
- * @param {number} min [min = 1]
- * @param {number} max [max = 5]
- * @return {number} returns random number from min to max
+            <pre class="prettyprint source linenums"><code>/**
+ * @typedef LetterMargins
+ * @property {number} vertical
+ * @property {number} horizontal
  */
-const randomNum = (min, max) => Math.round(Math.random() * (max - min) + min);
 
-/**
- * @type {Function}
- * @return {colors.ColorsType}
- */
-const randomColor = function() {
-  const {COLORS_LIST} = colors;
-  /** @type {number} */
-  const randomIndex = randomNum(0, colors.COLORS_LIST.length - 1);
-
-  return COLORS_LIST[randomIndex];
+/** @type {LetterMargins} */
+const LETTER_MARGINS = {
+  vertical: 10,
+  horizontal: 20,
 };
 
-console.log(randomColor());
-
 /**
- * @module Random
+ * @module animationSettings
  */
-module.exports = {randomNum, randomColor};
+module.exports = {LETTER_MARGINS};
 </code></pre>
         </article>
     </section>

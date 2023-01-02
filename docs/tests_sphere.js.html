@@ -26,7 +26,8 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>const { Animation } = require('termination');
+            <pre class="prettyprint source linenums"><code>/* eslint-disable max-len */
+const {Animation} = require('termination');
 const BezierEasing = require('bezier-easing');
 
 /**
@@ -38,7 +39,7 @@ const BezierEasing = require('bezier-easing');
  */
 
 /**
- * @type {string} 
+ * @type {string}
  */
 const sphereFrames = `\n  ______ \n .osmcns.\n.MNNMNMMN-\n.NNMNMMNM-\n .ohmdno.\n  ¯¯¯¯¯¯`;
 
@@ -46,90 +47,91 @@ const sphereFrames = `\n  ______ \n .osmcns.\n.MNNMNMMN-\n.NNMNMMNM-\n .ohmdno.\
  * @type {SphereProperty[]}
  */
 const sphereProperties = [
-    {
-        y: 0,
-        color: 'red',
-        label: 'cubic-bezier(0.25, -0.09, 0.82, 1.08)',
-        // @ts-ignore
-        func: t => new BezierEasing(0.25, -0.09, 0.82, 1.08)(t)
-    },
-    {
-        y: 8,
-        color: 'green',
-        label: 'cubic-bezier(0.25, -0.09, 0, 0.98)',
-        // @ts-ignore
-        func: t => new BezierEasing(0.25, -0.09, 0, 0.98)(t)
-    },
-    {
-        y: 16,
-        color: 'yellow',
-        label: 'ease-out',
-        func: 'ease-out'
-    },
-    {
-        y: 24,
-        color: 'blue',
-        label: 'linear',
-        func: 'linear'
-    },
+  {
+    y: 0,
+    color: 'red',
+    label: 'cubic-bezier(0.25, -0.09, 0.82, 1.08)',
+    // @ts-ignore
+    func: (t) => new BezierEasing(0.25, -0.09, 0.82, 1.08)(t),
+  },
+  {
+    y: 8,
+    color: 'green',
+    label: 'cubic-bezier(0.25, -0.09, 0, 0.98)',
+    // @ts-ignore
+    func: (t) => new BezierEasing(0.25, -0.09, 0, 0.98)(t),
+  },
+  {
+    y: 16,
+    color: 'yellow',
+    label: 'ease-out',
+    func: 'ease-out',
+  },
+  {
+    y: 24,
+    color: 'blue',
+    label: 'linear',
+    func: 'linear',
+  },
 ];
 
 /**
- * @type {Animation} 
+ * @type {Animation}
  */
 const animation = new Animation({
-    fps: 40,
-    maxSize: {
-        width: 100,
-        height: 71,
-    }
+  fps: 40,
+  maxSize: {
+    width: 100,
+    height: 71,
+  },
 });
 
-sphereProperties.map(sphereProperty => {
-    const sphereAnimation = animation.add({
-        y: sphereProperty.y,
-        x: 0,
-        content: sphereProperty.label + '\n',
-        color: sphereProperty.color,
-        replaceSpace: true,
-    })
+sphereProperties.map((sphereProperty) => {
+  const sphereAnimation = animation.add({
+    y: sphereProperty.y,
+    x: 0,
+    content: sphereProperty.label + '\n',
+    color: sphereProperty.color,
+    replaceSpace: true,
+  });
 
-    return sphereAnimation;
-})
+  return sphereAnimation;
+});
 
-const spheres = sphereProperties.map(sphereProperty => {
-    const sphereAnimation = animation.add({
-        y: sphereProperty.y,
-        x: 0,
-        color: sphereProperty.color,
-        content: sphereFrames,
-    })
+const spheres = sphereProperties.map((sphereProperty) => {
+  const sphereAnimation = animation.add({
+    y: sphereProperty.y,
+    x: 0,
+    color: sphereProperty.color,
+    content: sphereFrames,
+  });
 
-    return sphereAnimation;
+  return sphereAnimation;
 });
 
 const spheresTransition = spheres.map((sphere, index) => sphere.transition([
-    {
-        props: { x: 65 },
-        duration: 1500,
-        func: sphereProperties[index].func
-    }
-], { loop: true, alternate: true, loopInterval: 400 }));
+  {
+    props: {x: 65},
+    duration: 1500,
+    func: sphereProperties[index].func,
+  },
+], {loop: true, alternate: true, loopInterval: 400}));
 
 
 animation.start();
 
 console.log(spheresTransition);
 
-spheresTransition.forEach(el => el.run());
+spheresTransition.forEach((el) => el.run());
 
 setTimeout(() => {
-    animation.resume();
+  animation.resume();
 }, 5000);
 
 setTimeout(() => {
-    spheresTransition.forEach(el => el.pause());
-}, 20000);</code></pre>
+  spheresTransition.forEach((el) => el.pause());
+}, 20000);
+</code></pre>
         </article>
     </section>
 
@@ -139,13 +141,13 @@ setTimeout(() => {
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-Random.html">Random</a></li></ul><h3>Tutorials</h3><ul><li><a href="tutorial-phrases-tutorial.html">About Phrases List</a></li></ul><h3>Global</h3><ul><li><a href="global.html#COLORS">COLORS</a></li><li><a href="global.html#HAPPY_NEW_YEAR">HAPPY_NEW_YEAR</a></li><li><a href="global.html#Random">Random</a></li><li><a href="global.html#RandomColor">RandomColor</a></li><li><a href="global.html#animation">animation</a></li><li><a href="global.html#sphereFrames">sphereFrames</a></li><li><a href="global.html#sphereProperties">sphereProperties</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-Random.html">Random</a></li><li><a href="module-animationSettings.html">animationSettings</a></li></ul><h3>Tutorials</h3><ul><li><a href="tutorial-phrases-tutorial.html">About Phrases List</a></li></ul><h3>Global</h3><ul><li><a href="global.html#COLORS_LIST">COLORS_LIST</a></li><li><a href="global.html#HAPPY_NEW_YEAR">HAPPY_NEW_YEAR</a></li><li><a href="global.html#LETTER_MARGINS">LETTER_MARGINS</a></li><li><a href="global.html#animation">animation</a></li><li><a href="global.html#randomColor">randomColor</a></li><li><a href="global.html#randomNum">randomNum</a></li><li><a href="global.html#sphereFrames">sphereFrames</a></li><li><a href="global.html#sphereProperties">sphereProperties</a></li><li><a href="global.html#wordsHeight">wordsHeight</a></li><li><a href="global.html#wordsLength">wordsLength</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.0</a> on Mon Jan 02 2023 12:17:04 GMT+0200 (за східноєвропейським стандартним часом)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.0</a> on Mon Jan 02 2023 22:16:48 GMT+0200 (за східноєвропейським стандартним часом)
 </footer>
 
 <script> prettyPrint(); </script>
