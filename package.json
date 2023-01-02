@@ -4,15 +4,18 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "node ./src/index.js",
+    "dev": "nodemon ./src/index.js",
     "jsdoc": "jsdoc -c jsdoc.json",
+    "start": "node ./src/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "bezier-easing": "^2.1.0",
-    "termination": "^1.0.3"
+    "nodemon": "^2.0.20",
+    "termination": "^1.0.3",
+    "window-size": "^1.1.1"
   },
   "devDependencies": {
     "jsdoc": "^4.0.0"
