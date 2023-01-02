@@ -54,8 +54,8 @@ const phrasesAnimation = Phrases.HAPPY_NEW_YEAR.map((word, wordIndex) => {
         let maxLayerHeight = 0;
 
         const coordinates = {
-            x: letterIndex * letterMargins.bottom_top,
-            y: wordIndex * letterMargins.right_left,
+            x: letterIndex * letterMargins.right_left,
+            y: wordIndex * letterMargins.bottom_top,
         };
 
         const layersLength = letter.map((layer, layerIndex) => {
@@ -80,8 +80,8 @@ const phrasesAnimate = Phrases.HAPPY_NEW_YEAR.map((word, wordIndex) => {
     const wordFrames = word.map((letter, letterIndex) => {
 
         const coordinates = {
-            x: letterIndex * letterMargins.right_left + (width - wordsLength[wordIndex]) / 2,
-            y: wordIndex * letterMargins.bottom_top + (height - phraseHeight) / 2 + 5,
+            x: letterIndex * letterMargins.right_left + (width - letterMargins.right_left / 2 - wordsLength[wordIndex]) / 2,
+            y: wordIndex * letterMargins.bottom_top + (height - phraseHeight) / 2 + letterMargins.bottom_top / 2,
         };
 
         const letterAnimation = animation.add({
