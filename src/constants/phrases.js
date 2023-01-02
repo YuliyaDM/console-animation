@@ -12,7 +12,7 @@ const HAPPY_NEW_YEAR = [
       'h     h\nh     h\nh hhh h\nh     h\nh     h\n',
       '    a\n   a a\n  a   a\n a aaa a\na       a\n',
       'p p p\np   p\np p p\np\np\n',
-      'y     y\n  y y\n   y\n   y\n   y\n',
+      'p p p\np   p\np p p\np\np\n',
       'y     y\n  y y\n   y\n   y\n   y\n'
   ],
   [
