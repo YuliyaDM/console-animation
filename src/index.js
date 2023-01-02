@@ -39,7 +39,7 @@ const letterMargins = {
     right_left: 20, 
 }
 
-const phrasesAnimation = Phrases.HAPPY_NEW_YEAR.map((word, wordIndex) => {
+const phrasesCoordinates = Phrases.HAPPY_NEW_YEAR.map((word, wordIndex) => {
 
     /** @type {number} */
     let wordLength = 0;
