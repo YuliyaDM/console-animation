@@ -9,23 +9,23 @@
 
 const HAPPY_NEW_YEAR = [
   [
-      'h     h\nh     h\nh hhh h\nh     h\nh     h',
-      '    a\n   a a\n  a   a\n a aaa a\na       a',
-      'p p p\np   p\np p p\np\np',
-      'y     y\n  y y\n   y\n   y\n   y',
-      'y     y\n  y y\n   y\n   y\n   y'
+      'h     h\nh     h\nh hhh h\nh     h\nh     h\n',
+      '    a\n   a a\n  a   a\n a aaa a\na       a\n',
+      'p p p\np   p\np p p\np\np\n',
+      'y     y\n  y y\n   y\n   y\n   y\n',
+      'y     y\n  y y\n   y\n   y\n   y\n'
   ],
   [
-      'n   n\nnn  n\nn n n\nn  nn\nn   n',
-      'e eee\ne\ne eee\ne\ne eee',
-      'w             w\n w     w     w\n  w   w w   w\n   w w   w w\n    w     w'
+      'n   n\nnn  n\nn n n\nn  nn\nn   n\n',
+      'e eee\ne\ne eee\ne\ne eee\n',
+      'w             w\n w     w     w\n  w   w w   w\n   w w   w w\n    w     w\n'
   ],
   [
-      'y     y\n  y y\n   y\n   y\n   y',
-      'e eee\ne\ne eee\ne\ne eee',
-      '    a\n   a a\n  a   a\n a aaa a\na       a',
-      'rrrr\nrrrr\nrr\nr r\nr  r',
-      '!!\n!!\n!!\n \n@@',
+      'y     y\n  y y\n   y\n   y\n   y\n',
+      'e eee\ne\ne eee\ne\ne eee\n',
+      '    a\n   a a\n  a   a\n a aaa a\na       a\n',
+      'rrrr\nrrrr\nrr\nr r\nr  r\n',
+      '!!\n!!\n!!\n!!\n@@\n',
   ]
 ].map(word => word.map(letters => letters.split('\n')));
 
