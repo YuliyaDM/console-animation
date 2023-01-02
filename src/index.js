@@ -15,19 +15,14 @@ const {width, height} = size;
 /**
  * @type {object}
  * @property {animationSettings.LetterMargins} LETTER_MARGINS
+ * @property {animationSettings.AnimationParameters} ANIMATION
  */
-const {LETTER_MARGINS} = animationSettings;
+const {LETTER_MARGINS, ANIMATION_PARAMETERS} = animationSettings;
 
 /**
  * @type {Animation}
  */
-const animation = new Animation({
-  fps: 35,
-  maxSize: {
-    width: width,
-    height: height,
-  },
-});
+const animation = new Animation(ANIMATION_PARAMETERS);
 
 /**
  * @type {object}
@@ -77,7 +72,7 @@ const phrasesCoordinates = phrases.HAPPY_NEW_YEAR.map((word, wordIndex) => {
 });
 
 const phraseHeight = wordsSize.height.reduce((preEl, currEl) => {
-  return preEl + 10 + currEl;
+  return preEl + LETTER_MARGINS.vertical + currEl;
 }, 0) - LETTER_MARGINS.vertical;
 
 const phrasesAnimate = phrases.HAPPY_NEW_YEAR.map((word, wordIndex) => {
