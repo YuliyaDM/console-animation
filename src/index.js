@@ -1,6 +1,6 @@
 const { Animation } = require('termination');
 const BezierEasing = require('bezier-easing');
-const { Random } = require('./utils/random');
+const { random } = require('./utils/random');
 const Phrases = require('./constants/phrases');
 const Colors = require('./constants/colors');
 const size = require('window-size');
@@ -27,12 +27,17 @@ const animation = new Animation({
  * @type {Function}
  * @returns {Colors.ColorsType}
  */
-const RandomColor = () => Colors.COLORS[Random(0, Colors.COLORS.length - 1)];
+const RandomColor = () => Colors.COLORS_LIST[random(0, Colors.COLORS_LIST.length - 1)];
 
 /** @type {number[]} */
 let wordsLength = [];
 /** @type {number[]} */
 let wordsHeight = [];
+
+const letterMargins = {
+    bottom_top: 10,
+    right_left: 20, 
+}
 
 const phrasesAnimation = Phrases.HAPPY_NEW_YEAR.map((word, wordIndex) => {
 
@@ -49,8 +54,8 @@ const phrasesAnimation = Phrases.HAPPY_NEW_YEAR.map((word, wordIndex) => {
         let maxLayerHeight = 0;
 
         const coordinates = {
-            x: letterIndex * 20,
-            y: wordIndex * 10,
+            x: letterIndex * letterMargins.bottom_top,
+            y: wordIndex * letterMargins.right_left,
         };
 
         const layersLength = letter.map((layer, layerIndex) => {
@@ -75,8 +80,8 @@ const phrasesAnimate = Phrases.HAPPY_NEW_YEAR.map((word, wordIndex) => {
     const wordFrames = word.map((letter, letterIndex) => {
 
         const coordinates = {
-            x: letterIndex * 20 + (width - wordsLength[wordIndex]) / 2,
-            y: wordIndex * 10 + (height - phraseHeight) / 2 + 5,
+            x: letterIndex * letterMargins.right_left + (width - wordsLength[wordIndex]) / 2,
+            y: wordIndex * letterMargins.bottom_top + (height - phraseHeight) / 2 + 5,
         };
 
         const letterAnimation = animation.add({

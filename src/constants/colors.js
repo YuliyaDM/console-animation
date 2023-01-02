@@ -7,6 +7,6 @@
  * @type {ColorsType[]}
  * @constant
  */
-const COLORS = ['red', 'yellow', 'green', 'blue', 'cyan', 'magenta'];
+const COLORS_LIST = ['red', 'yellow', 'green', 'blue', 'cyan', 'magenta'];
 
-module.exports = { COLORS };
+module.exports = { COLORS_LIST };
